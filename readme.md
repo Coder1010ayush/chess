@@ -30,7 +30,6 @@ Ensure you have the following installed:
 #### 1. Clone the Repository
 ```sh
 git clone https://github.com/Coder1010ayush/chess.git
-cd chess
 ```
 
 #### 2. Setup the Backend (Flask API)
