@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="flex items-center justify-center h-screen bg-[#312e2b] p-4">
       { }
-      <div className="w-[840px] h-[840px] rounded-md overflow-hidden grid grid-cols-8">
+      <div className="w-[440px] h-[440px] rounded-md overflow-hidden grid grid-cols-8">
         { }
         {[...Array(8)].map((_, row) =>
           [...Array(8)].map((_, col) => {
