@@ -41,7 +41,6 @@ def get_element_position():
 
         except Exception as e:
             return jsonify({"error": str(e)}), 500
-
     return jsonify({"message": "Send a POST request with an element's position."})
 
 
