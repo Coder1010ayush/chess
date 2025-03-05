@@ -17,6 +17,7 @@ class Piece {
   }
 }
 
+// Board Class
 class Board {
   constructor() {
     this.board = this.initializeBoard();
@@ -30,7 +31,6 @@ class Board {
       board[6][col] = new Piece("pawn", "white");
     }
 
-    // pieces names
     const pieces = [
       "rook", "knight", "bishop", "queen",
       "king", "bishop", "knight", "rook"
@@ -51,7 +51,6 @@ class Board {
   movePiece(start, end) {
     const piece = this.getPiece(start.row, start.col);
     if (piece && piece.canMove(start, end)) {
-      // Perform move (simplified)
       this.board[end.row][end.col] = piece;
       this.board[start.row][start.col] = null;
       return true;
@@ -86,9 +85,9 @@ function App() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-[#312e2b] p-4">
-      {/* Smaller Chessboard Container */}
-      <div className="w-[490px] h-[490px] rounded-md overflow-hidden grid grid-cols-8">
-        {/* Creating 64 squares dynamically */}
+      { }
+      <div className="w-[840px] h-[840px] rounded-md overflow-hidden grid grid-cols-8">
+        { }
         {[...Array(8)].map((_, row) =>
           [...Array(8)].map((_, col) => {
             const isBlack = (row + col) % 2 === 1;
@@ -102,7 +101,7 @@ function App() {
                 onClick={() => handleClick(row, col)}
               >
                 {piece && (
-                  <img src={piece} alt="chess piece" className="w-[75%] h-[75%]" />
+                  <img src={piece} alt="chess piece" className="w-[80%] h-[80%]" />
                 )}
               </div>
             );
