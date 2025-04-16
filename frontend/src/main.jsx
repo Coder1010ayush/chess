@@ -6,13 +6,15 @@ import Setting from './components/settings/setting.jsx'
 import Home from './components/home/Home.jsx'
 import Sidebar from './components/sidebar/Sidebar.jsx'
 import ChessLandingPage from './components/chessLandingPage/ChessLandingPage.jsx'
+import ChessBox from './components/chessBox/ChessBox.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    {/* <App /> */}
     {/* <Setting /> */}
     {/* <Home /> */}
     {/* <Sidebar /> */}
-    <ChessLandingPage />
+    {/* <ChessLandingPage /> */}
+    <ChessBox />
   </StrictMode>,
 )
