@@ -10,11 +10,11 @@ import ChessBox from './components/chessBox/ChessBox.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
+    <App />
     {/* <Setting /> */}
     {/* <Home /> */}
     {/* <Sidebar /> */}
     {/* <ChessLandingPage /> */}
-    <ChessBox />
+    {/* <ChessBox /> */}
   </StrictMode>,
 )
