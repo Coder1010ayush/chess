@@ -36,7 +36,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         { id: 'tournaments', icon: <Trophy className="w-5 h-5" />, label: 'Bots Vs Bots', action: () => alert('Opening Tournaments!') },
     ];
 
-    const handleToggleCollapse = () => setCollapsed(!collapsed);
+    const handleToggleCollapse = () => setCollapsed && setCollapsed(!collapsed);
     const handleToggleTheme = () => setLightMode(!lightMode);
     const handleSettings = () => alert('Navigating to Settings Page!');
 
@@ -114,7 +114,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
             {/* Submenu */}
             {showPlaySubmenu && (
-                <div className="fixed left-16 h-screen w-48 bg-gray-800 text-gray-200 transition-opacity duration-300 shadow-lg flex flex-col z-40">
+                <div className={`fixed ${collapsed ? 'left-16' : 'left-60'} h-screen w-88 bg-gray-800 text-gray-200 transition-all duration-300 shadow-lg flex flex-col z-40`}>
                     <button onClick={() => setShowPlaySubmenu(false)} className="p-3 text-gray-300 hover:text-white hover:bg-gray-700 flex items-center justify-end">
                         <X className="w-5 h-5" />
                     </button>
