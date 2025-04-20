@@ -26,10 +26,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -42,6 +39,13 @@ app.post("/send-data", (req, res) => {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+
+
+// for testing purposes
+app.get("/", (req, res) => {
+    res.send("Chess backend API is running successfully!");
+});
+
 
 // Start Server
 app.listen(PORT, () => {
