@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "../sidebar/Sidebar";
+import SidebarLanding from "../sidebarLanding/SidebarLanding";
 
 const ChessLandingPage = () => {
     return (
