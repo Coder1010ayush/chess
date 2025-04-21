@@ -30,7 +30,6 @@ const userSchema = new mongoose.Schema({
         type: String, //Cloudinary URL
         required: true,
     },
-    googleId: String,
 });
 
 module.exports = mongoose.model("User", userSchema);
