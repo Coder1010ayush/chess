@@ -79,7 +79,9 @@ const SidebarLanding = () => {
                                 Sign Up
                             </button>
 
-                            <button className="w-full bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 rounded-lg transition-all">
+                            <button
+                                onClick={() => navigate("/login")}
+                                className="w-full bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 rounded-lg transition-all">
                                 Log In
                             </button>
                         </div>
