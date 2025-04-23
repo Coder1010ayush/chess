@@ -7,6 +7,7 @@ import Home from './components/home/Home.jsx'
 import Sidebar from './components/sidebar/Sidebar.jsx'
 import ChessLandingPage from './components/chessLandingPage/ChessLandingPage.jsx'
 import ChessBox from './components/chessBox/ChessBox.jsx'
+import SignupPage from './components/signupPage/SignupPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,5 +17,6 @@ createRoot(document.getElementById('root')).render(
     {/* <Sidebar /> */}
     {/* <ChessLandingPage /> */}
     {/* <ChessBox /> */}
+    {/* < SignupPage /> */}
   </StrictMode>,
 )

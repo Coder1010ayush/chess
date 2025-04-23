@@ -10,7 +10,7 @@ function Layout() {
         <div className="flex min-h-screen">
             <SidebarLanding />
             {/* <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} /> */}
-            <main className={`flex-1 overflow-y-auto ml-40 p-4 bg-gray-900 text-white transition-all duration-300 ${collapsed ? 'ml-16' : 'ml-60'}`}>
+            <main className={`flex-1 overflow-y-auto ml-40 p-4 bg-gray-900 text-white transition-all duration-300 `}>
                 <Outlet />
             </main>
         </div>

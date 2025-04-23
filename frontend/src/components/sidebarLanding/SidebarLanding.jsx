@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import {
     ChevronRight,
     Play,
@@ -16,7 +18,9 @@ import {
     X,
 } from 'lucide-react';
 
+
 const SidebarLanding = () => {
+    const navigate = useNavigate();
     const [lightMode, setLightMode] = useState(false);
     const [showPlaySubmenu, setShowPlaySubmenu] = useState(false);
 
@@ -68,9 +72,13 @@ const SidebarLanding = () => {
 
                         {/* Signup and Login Buttons */}
                         <div className="mt-4 space-y-2 px-2">
-                            <button className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-lg transition-all">
+                            <button
+                                onClick={() => navigate("/signup")}
+                                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-lg transition-all"
+                            >
                                 Sign Up
                             </button>
+
                             <button className="w-full bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 rounded-lg transition-all">
                                 Log In
                             </button>
