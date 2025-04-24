@@ -21,19 +21,54 @@ const ChessLandingPage = () => {
             </section>
 
             {/* Puzzle Section */}
+            {/* Puzzle Section */}
             <section className="flex flex-col md:flex-row bg-gray-800 p-6 md:p-12 mt-8">
-                <div className="w-full md:w-1/2 space-y-4">
-                    <h2 className="text-2xl font-semibold">Solve Chess Puzzles</h2>
-                    <button className="bg-green-500 px-6 py-2 rounded text-white font-bold hover:bg-green-600">Solve Puzzles</button>
-                    <div className="flex items-center mt-4">
-                        <img src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain" alt="Hikaru" className="w-16 h-16 rounded-lg mr-4" />
-                        <p className="text-gray-300 text-sm">"Puzzles are the best way to improve pattern recognition, and no site does it better."<br /><strong>GM Hikaru Nakamura</strong></p>
+                {/* Content (Left on Desktop) */}
+                <div className="w-full md:w-1/2 space-y-4 mt-6 md:mt-0 md:pr-8 flex flex-col">
+                    <h2 className="text-2xl font-semibold order-1">Solve Chess Puzzles</h2>
+
+                    {/* Image (Mobile View Only) */}
+                    <div className="flex justify-center md:hidden order-2">
+                        <img
+                            src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain"
+                            alt="Puzzle"
+                            className="rounded shadow-md w-full max-w-md object-cover"
+                        />
+                    </div>
+
+                    {/* Quote (Mobile & Desktop) */}
+                    <div className="flex items-center gap-4 order-3">
+                        <img
+                            src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain"
+                            alt="Hikaru"
+                            className="w-16 h-16 rounded-lg"
+                        />
+                        <p className="text-gray-300 text-sm">
+                            "Puzzles are the best way to improve pattern recognition, and no site does it better."
+                            <br />
+                            <strong>GM Hikaru Nakamura</strong>
+                        </p>
+                    </div>
+
+                    {/* Button */}
+                    <div className="order-4">
+                        <button className="bg-green-500 px-6 py-2 rounded text-white font-bold hover:bg-green-600">
+                            Solve Puzzles
+                        </button>
                     </div>
                 </div>
-                <div className="w-full md:w-1/2 mt-6 md:mt-0 flex justify-center">
-                    <img src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain" alt="Puzzle" className="rounded shadow-md" />
+
+                {/* Image (Right on Desktop) */}
+                <div className="w-full md:w-1/2 hidden md:flex justify-center">
+                    <img
+                        src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain"
+                        alt="Puzzle"
+                        className="rounded shadow-md w-full max-w-md object-cover"
+                    />
                 </div>
             </section>
+
+
 
             {/* Lesson Section */}
             <section className="flex flex-col md:flex-row bg-gray-800 p-6 md:p-12 mt-8">
@@ -42,11 +77,12 @@ const ChessLandingPage = () => {
                 </div>
                 <div className="w-full md:w-1/2 space-y-4 mt-6 md:mt-0">
                     <h2 className="text-2xl font-semibold">Take Chess Lessons</h2>
-                    <button className="bg-green-500 px-6 py-2 rounded text-white font-bold hover:bg-green-600">Start Lessons</button>
                     <div className="flex items-center mt-4">
                         <img src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain" alt="Anna Rudolf" className="w-16 h-16 rounded-lg mr-4" />
                         <p className="text-gray-300 text-sm">"Chess.com lessons make it easy to learn to play, then challenge you to continue growing."<br /><strong>IM Anna Rudolf</strong></p>
                     </div>
+                    <button className="bg-green-500 px-6 py-2 rounded text-white font-bold hover:bg-green-600">Start Lessons</button>
+
                 </div>
             </section>
 
