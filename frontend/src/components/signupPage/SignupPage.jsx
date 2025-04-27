@@ -63,6 +63,13 @@ const SignupPage = () => {
     return (
         <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
             <div className="w-full max-w-md p-4">
+                {/* Back Button */}
+                <button
+                    onClick={() => navigate(-1)}
+                    className="text-sm text-blue-400 hover:underline mb-4"
+                >
+                    ← Back
+                </button>
                 <form onSubmit={handleSubmit} className="space-y-4 bg-gray-800 p-6 rounded">
                     <h2 className="text-xl font-bold text-center">Sign Up</h2>
 
