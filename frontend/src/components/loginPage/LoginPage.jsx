@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({ setUserLoggedIn }) => {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -11,7 +11,6 @@ const LoginPage = () => {
     });
 
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,14 +19,14 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
-        setSuccess("");
 
         try {
-            const res = await axios.post("http://localhost:9092/login", form);
+            const res = await axios.post("http://localhost:9092/auth/login", form); // correct endpoint
             localStorage.setItem("token", res.data.token);
-            setSuccess("Login successful!");
-            navigate("/"); // redirect to homepage
+            setUserLoggedIn(true); // Update userLoggedIn state to true
+            navigate("/"); // after login, go to Home
         } catch (err) {
+            console.error(err);
             setError(err.response?.data?.error || "Login failed.");
         }
     };
@@ -70,7 +69,6 @@ const LoginPage = () => {
                     />
 
                     {error && <p className="text-red-400 text-sm">{error}</p>}
-                    {success && <p className="text-green-400 text-sm">{success}</p>}
 
                     <button
                         type="submit"

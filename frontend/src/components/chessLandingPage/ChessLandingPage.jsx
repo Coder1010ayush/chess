@@ -5,6 +5,8 @@ import SidebarLanding from "../sidebarLanding/SidebarLanding";
 const ChessLandingPage = () => {
     return (
         <div className="bg-gray-900 text-white font-sans min-h-screen">
+            {/* Sidebar for logged in users */}
+            <SidebarLanding />
             {/* Hero Section */}
             <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10 bg-gray-800">
                 <div className="w-full md:w-1/2">

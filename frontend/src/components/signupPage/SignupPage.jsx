@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-
-const SignupPage = () => {
+const SignupPage = ({ setUserLoggedIn }) => {
     const [form, setForm] = useState({
         username: "",
         email: "",
         fullName: "",
         password: "",
-        avatar: "", // cloudinary URL
+        avatar: "", // Cloudinary URL
     });
 
     const [error, setError] = useState("");
@@ -38,10 +37,10 @@ const SignupPage = () => {
                 formData
             );
             setForm((prev) => ({ ...prev, avatar: res.data.secure_url }));
-            setUploading(false);
         } catch (err) {
             console.error(err);
             setError("Image upload failed.");
+        } finally {
             setUploading(false);
         }
     };
@@ -53,7 +52,8 @@ const SignupPage = () => {
         try {
             const res = await axios.post("http://localhost:9092/auth/signup", form);
             localStorage.setItem("token", res.data.token);
-            navigate("/login");
+            setUserLoggedIn(true); // Update userLoggedIn state to true
+            navigate("/"); //  After signup, go to Home with Sidebar
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.error || "Signup failed.");
@@ -70,6 +70,7 @@ const SignupPage = () => {
                 >
                     ← Back
                 </button>
+
                 <form onSubmit={handleSubmit} className="space-y-4 bg-gray-800 p-6 rounded">
                     <h2 className="text-xl font-bold text-center">Sign Up</h2>
 
@@ -129,8 +130,9 @@ const SignupPage = () => {
                     <button
                         type="submit"
                         className="w-full bg-green-500 hover:bg-green-600 py-2 rounded font-bold"
+                        disabled={uploading}
                     >
-                        Sign Up
+                        {uploading ? "Uploading..." : "Sign Up"}
                     </button>
                 </form>
             </div>
