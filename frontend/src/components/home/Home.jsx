@@ -7,8 +7,8 @@ const ChessHomePage = () => {
     return (
         <div className="bg-gray-900 min-h-screen text-white">
             {/* Header */}
-            <header className="flex flex-col md:flex-row justify-between items-center p-4 border-b border-gray-800 space-y-2 md:space-y-0">
-                <div className="flex items-center">
+            <header className="flex flex-col md:flex-row justify-start md:justify-between p-4 border-b border-gray-800 space-y-2 md:space-y-0">
+                <div className="flex items-center justify-start md:justify-center">
                     <img
                         src="https://comicvine.gamespot.com/a/uploads/scale_medium/11176/111765968/9057023-dceusuperman.jpg"
                         alt="User avatar"
@@ -21,18 +21,18 @@ const ChessHomePage = () => {
                         className="ml-2 w-6 h-4"
                     />
                 </div>
-                <div className="flex space-x-4">
+                <div className="space-x-4 hidden md:flex">
                     <button className="text-gray-400 hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                     </button>
-                    <button className="flex items-center text-gray-400 hover:text-white h-6 rounded-lg px-3 py-2 w-full transition-colors">
+                    <button className="flex items-center text-gray-400 hover:text-white">
                         <Settings className="w-5 h-5" />
                         {/* {<span className="ml-3">Settings</span>} */}
                     </button>
-
                 </div>
+
             </header>
 
             {/* Welcome banner */}
