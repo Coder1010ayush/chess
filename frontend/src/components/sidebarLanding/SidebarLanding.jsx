@@ -159,7 +159,7 @@ const SidebarLanding = () => {
 
                 </div>
 
-                <div className='mt-8 pt-10 mb-2'>
+                <div className='mt-8 pt-10 mb-2 px-2'>
                     <button
                         onClick={handleToggleTheme}
                         className="flex items-center w-full text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
@@ -182,7 +182,7 @@ const SidebarLanding = () => {
                 <div
                     onMouseEnter={handleSubmenuMouseEnter}
                     onMouseLeave={handleSubmenuMouseLeave}
-                    className="hidden md:block fixed left-40 top-4 h-screen bg-gray-900 text-gray-200 w-42 shadow-xl px-3 py-2 z-30"
+                    className="hidden md:block fixed left-40 h-screen bg-gray-900 text-gray-200 w-42 shadow-xl px-3 py-2 z-30"
                 >
                     {playSubmenuItems.map((subItem) => (
                         <button
