@@ -1,24 +1,27 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ChessLandingPage from "./components/chessLandingPage/ChessLandingPage";
 import SignupPage from "./components/signupPage/SignupPage";
 import LoginPage from "./components/loginPage/LoginPage";
 import Layout from "./Layout";
 import ChessHomePage from "./components/home/Home";
+import ChessLandingPage from "./components/chessLandingPage/ChessLandingPage";
 
 function App() {
-  const [userLoggedIn, setUserLoggedIn] = useState(false); // Manage auth state
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   return (
     <Router>
       <Routes>
-        <Route path="signup" element={<SignupPage setUserLoggedIn={setUserLoggedIn} />} /> {/* Pass login handler */}
-        <Route path="login" element={<LoginPage setUserLoggedIn={setUserLoggedIn} />} /> {/* Pass login handler */}
+        <Route path="/signup" element={<SignupPage setUserLoggedIn={setUserLoggedIn} />} />
+        <Route path="/login" element={<LoginPage setUserLoggedIn={setUserLoggedIn} />} />
 
-        {/* For unauthenticated users, show the ChessLandingPage */}
-        <Route path="/" element={userLoggedIn ? <Layout userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} /> : <ChessLandingPage />} >
-          <Route index element={<ChessHomePage />} />
-        </Route>
+        {userLoggedIn ? (
+          <Route path="/" element={<Layout userLoggedIn={userLoggedIn} />}>
+            <Route index element={<ChessHomePage />} />
+          </Route>
+        ) : (
+          <Route path="/*" element={<ChessLandingPage />} />
+        )}
       </Routes>
     </Router>
   );
