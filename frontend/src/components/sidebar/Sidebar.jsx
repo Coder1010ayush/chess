@@ -37,16 +37,16 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
     ];
 
     const playSubmenuItems = [
-        { id: 'online', icon: <Globe className="w-5 h-5" />, label: 'Human Vs Human', action: () => alert('Navigating to Online Play!') },
-        { id: 'computer', icon: <Cpu className="w-5 h-5" />, label: 'Human Vs Bots', action: () => alert('Starting a game Vs Computer!') },
-        { id: 'tournaments', icon: <Trophy className="w-5 h-5" />, label: 'Bots Vs Bots', action: () => alert('Opening Tournaments!') },
+        { id: 'online', icon: <Globe className="w-5 h-5" />, label: 'Human Vs Human', action: () => alert('Play Human vs Human') },
+        { id: 'computer', icon: <Cpu className="w-5 h-5" />, label: 'Human Vs Bots', action: () => alert('Play vs Bots') },
+        { id: 'tournaments', icon: <Trophy className="w-5 h-5" />, label: 'Bots Vs Bots', action: () => alert('Bots Tournament') },
     ];
 
     const handleToggleTheme = () => setLightMode(!lightMode);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
-        setShowMobilePlaySubmenu(false);
+        setShowMobilePlaySubmenu(false); // Close submenu when toggling main menu
     };
 
     const handlePlayMouseEnter = () => {
@@ -84,8 +84,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                         <span className="text-xl font-bold">Chess.in</span>
                     </div>
                 </div>
-
-                {/* Icons instead of Sign Up / Log In */}
                 {!isMobileMenuOpen && (
                     <div className="flex items-center space-x-4">
                         <button className="text-gray-400 hover:text-white">
@@ -99,7 +97,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                     </div>
                 )}
             </div>
-
 
             {/* Desktop Sidebar */}
             <div className={`hidden md:flex fixed top-0 left-0 h-screen ${collapsed ? 'w-16' : 'w-40'} bg-black text-gray-200 flex-col z-40 transition-all duration-300`}>
@@ -151,13 +148,13 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                             </button>
                         </li>
                         <li>
-                            <button onClick={() => setCollapsed && setCollapsed(!collapsed)} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full">
+                            <button onClick={() => setCollapsed(!collapsed)} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full">
                                 <ChevronRight className={`w-5 h-5 ${collapsed ? '' : 'rotate-180'} transition-transform`} />
                                 {!collapsed && <span className="ml-3">Collapse</span>}
                             </button>
                         </li>
                         <li>
-                            <button onClick={handleToggleTheme} className="flex items-center text-gray-300 hover:bg-gray-800 h-6 rounded-lg px-3 py-2 w-full transition-colors">
+                            <button onClick={handleToggleTheme} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full transition-colors">
                                 <Settings className="w-5 h-5" />
                                 {!collapsed && <span className="ml-3">Settings</span>}
                             </button>
@@ -172,7 +169,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 </div>
             </div>
 
-            {/* Desktop Hover Submenu */}
+            {/* Desktop Play Submenu */}
             {showPlaySubmenu && (
                 <div
                     onMouseEnter={handleSubmenuMouseEnter}
@@ -180,11 +177,14 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                     className="hidden md:block fixed top-0 left-40 h-screen w-50 bg-gray-900 text-gray-200 shadow-lg z-30"
                 >
                     <ul className="space-y-2 p-4">
-                        {playSubmenuItems.map((subItem) => (
-                            <li key={subItem.id}>
-                                <button onClick={subItem.action} className="flex items-center w-full text-left text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2">
-                                    {subItem.icon}
-                                    <span className="ml-3">{subItem.label}</span>
+                        {playSubmenuItems.map((item) => (
+                            <li key={item.id}>
+                                <button
+                                    onClick={item.action}
+                                    className="flex items-center w-full text-left text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
+                                >
+                                    {item.icon}
+                                    <span className="ml-3">{item.label}</span>
                                 </button>
                             </li>
                         ))}
@@ -194,12 +194,12 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
             {/* Mobile Sidebar */}
             {isMobileMenuOpen && (
-                <div className="md:hidden fixed top-14 left-0 w-40 h-screen bg-black text-white z-40 p-4 shadow-md space-y-4">
+                <div className="md:hidden fixed top-14 left-0 w-40 h-screen bg-black text-white z-40 p-4 shadow-md overflow-y-auto">
                     <ul className="space-y-2">
                         {menuItems.map((item) => (
                             <li key={item.id}>
                                 <button
-                                    onClick={() => item.submenu ? setShowMobilePlaySubmenu(!showMobilePlaySubmenu) : null}
+                                    onClick={() => item.submenu ? setShowMobilePlaySubmenu(true) : null}
                                     className="flex items-center w-full text-left text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
                                 >
                                     {item.icon}
@@ -208,45 +208,60 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                             </li>
                         ))}
                     </ul>
-
-                    {showMobilePlaySubmenu && (
-                        <div className="pl-4 mt-2 space-y-2">
-                            {playSubmenuItems.map((subItem) => (
-                                <button
-                                    key={subItem.id}
-                                    onClick={subItem.action}
-                                    className="flex items-center w-full text-gray-300 hover:bg-gray-700 rounded-lg px-2 py-1"
-                                >
-                                    {subItem.icon}
-                                    <span className="ml-2">{subItem.label}</span>
-                                </button>
-                            ))}
+                    {/* Search */}
+                    <div className="px-4 py-2 mt-20 pt-10">
+                        <div className="relative">
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                className="w-full bg-gray-800 text-gray-300 rounded-md py-2 pl-8 pr-4"
+                            />
+                            <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
                         </div>
-                    )}
-
-                    {/* <div className="mt-6">
-                        <button onClick={() => navigate('/signup')} className="w-full bg-green-600 text-white py-2 rounded-lg mb-2">
-                            Sign Up
-                        </button>
-                        <button onClick={() => navigate('/login')} className="w-full bg-gray-700 text-white py-2 rounded-lg">
-                            Log In
-                        </button>
-                    </div> */}
-
-                    <div className="mt-10 pt-20">
-                        <button onClick={handleToggleTheme} className="flex items-center w-full text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2">
+                    </div>
+                    {/* Light UI & Support */}
+                    <div className="border-t border-gray-800 pt-2">
+                        <button onClick={handleToggleTheme} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full">
                             <SunMoon className="w-5 h-5" />
                             <span className="ml-3">Light UI</span>
                         </button>
-                        <button onClick={handleToggleTheme} className="flex items-center text-gray-300 hover:bg-gray-800 h-6 rounded-lg px-3 py-2 w-full transition-colors">
+                        <button onClick={handleToggleTheme} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full">
                             <Settings className="w-5 h-5" />
-                            {<span className="ml-3">Settings</span>}
+                            <span className="ml-3">Settings</span>
                         </button>
-                        <a href="#" className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2">
+                        <a href="#" className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full">
                             <HelpCircle className="w-5 h-5" />
                             <span className="ml-3">Support</span>
                         </a>
                     </div>
+                </div>
+            )}
+
+            {/* Mobile Play Submenu (to right of main sidebar) */}
+            {isMobileMenuOpen && showMobilePlaySubmenu && (
+                <div className="md:hidden fixed top-14 left-40 w-55 h-screen bg-gray-900 text-white z-50 p-4 shadow-lg">
+                    <div className="flex justify-end mb-4">
+                        <button
+                            onClick={() => setShowMobilePlaySubmenu(false)}
+                            className="text-gray-300 hover:text-white"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
+                    {playSubmenuItems.map((item) => (
+                        <button
+                            key={item.id}
+                            onClick={() => {
+                                item.action();
+                                setShowMobilePlaySubmenu(false);
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className="flex items-center w-full text-sm text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
+                        >
+                            {item.icon}
+                            <span className="ml-3">{item.label}</span>
+                        </button>
+                    ))}
                 </div>
             )}
         </>
