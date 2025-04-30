@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Settings } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ChessHomePage = () => {
     const [showWelcome, setShowWelcome] = useState(true);
+    const navigate = useNavigate();
 
     return (
         <div className="bg-gray-900 min-h-screen text-white">
-            {/* Header */}
             <header className="flex flex-col md:flex-row justify-start md:justify-between p-4 border-b border-gray-800 space-y-2 md:space-y-0">
                 <div className="flex items-center justify-start md:justify-center">
                     <img
@@ -29,13 +30,10 @@ const ChessHomePage = () => {
                     </button>
                     <button className="flex items-center text-gray-400 hover:text-white">
                         <Settings className="w-5 h-5" />
-                        {/* {<span className="ml-3">Settings</span>} */}
                     </button>
                 </div>
-
             </header>
 
-            {/* Welcome banner */}
             {showWelcome && (
                 <div className="bg-blue-500 p-4 md:p-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
                     <div>
@@ -48,7 +46,6 @@ const ChessHomePage = () => {
                 </div>
             )}
 
-            {/* Features menu */}
             <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                     { title: 'Play', description: 'Start a game', color: 'amber-200' },
@@ -73,18 +70,28 @@ const ChessHomePage = () => {
                 ))}
             </div>
 
-            {/* Chess Boards */}
             <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <ChessBoard title="Human - Human" imageUrl="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain" />
-                <ChessBoard title="Human - AI" imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Chess_board_opening.svg/800px-Chess_board_opening.svg.png" />
-                <ChessBoard title="AI - AI" imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Chess_kasparov.png/800px-Chess_kasparov.png" />
+                <ChessBoard
+                    title="Human - Human"
+                    imageUrl="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain"
+                    onClick={() => navigate("/play/human-vs-human")}
+                />
+                <ChessBoard
+                    title="Human - AI"
+                    imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Chess_board_opening.svg/800px-Chess_board_opening.svg.png"
+                    onClick={() => navigate("/play/human-vs-ai")}
+                />
+                <ChessBoard
+                    title="AI - AI"
+                    imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Chess_kasparov.png/800px-Chess_kasparov.png"
+                    onClick={() => navigate("/play/ai-vs-ai")}
+                />
             </div>
         </div>
     );
 };
 
-// ChessBoard Component
-const ChessBoard = ({ title, imageUrl }) => {
+const ChessBoard = ({ title, imageUrl, onClick }) => {
     return (
         <div className="bg-gray-800 rounded-md overflow-hidden">
             <div className="p-4">
@@ -93,7 +100,9 @@ const ChessBoard = ({ title, imageUrl }) => {
                 </div>
             </div>
             <div className="p-4 text-center">
-                <button className="font-bold text-lg">{title}</button>
+                <button onClick={onClick} className="font-bold text-lg hover:underline focus:outline-none">
+                    {title}
+                </button>
             </div>
         </div>
     );

@@ -27,7 +27,6 @@ function ChessBox() {
 
     return (
         <div className="flex items-center justify-center h-screen bg-[#312e2b] p-4">
-            {/* Chess Board */}
             <div className="w-[440px] h-[440px] rounded-md overflow-hidden grid grid-cols-8">
                 {[...Array(8)].map((_, row) =>
                     [...Array(8)].map((_, col) => {
@@ -50,7 +49,6 @@ function ChessBox() {
                 )}
             </div>
 
-            {/* Right Side Buttons */}
             <div className="flex bg-black flex-col space-y-4 ml-6 w-[220px] h-[440px] p-4">
                 <button className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md shadow w-full relative">
                     <span className="block text-center w-full">Set Time</span>

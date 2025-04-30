@@ -5,6 +5,7 @@ import LoginPage from "./components/loginPage/LoginPage";
 import Layout from "./Layout";
 import ChessHomePage from "./components/home/Home";
 import ChessLandingPage from "./components/chessLandingPage/ChessLandingPage";
+import ChessBox from "./components/chessBox/ChessBox";
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -18,6 +19,9 @@ function App() {
         {userLoggedIn ? (
           <Route path="/" element={<Layout userLoggedIn={userLoggedIn} />}>
             <Route index element={<ChessHomePage />} />
+            <Route path="play/human-vs-human" element={<ChessBox />} />
+            <Route path="play/human-vs-ai" element={<ChessBox />} />
+            <Route path="play/ai-vs-ai" element={<ChessBox />} />
           </Route>
         ) : (
           <Route path="/*" element={<ChessLandingPage />} />
