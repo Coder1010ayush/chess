@@ -17,6 +17,7 @@ import {
     Globe,
     Menu,
     X,
+    LogOut,
 } from 'lucide-react';
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
@@ -26,6 +27,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [showMobilePlaySubmenu, setShowMobilePlaySubmenu] = useState(false);
     const hoverTimeout = useRef(null);
+    const [showSettingsSubmenu, setShowSettingsSubmenu] = useState(false);
+
 
     const menuItems = [
         { id: 1, icon: <Play className="w-6 h-6" />, label: 'Play', submenu: true },
@@ -70,6 +73,30 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             setShowPlaySubmenu(false);
         }, 200);
     };
+
+    // Settings submenu handlers
+    const handleSettingsMouseEnter = () => {
+        clearTimeout(hoverTimeout.current);
+        setShowSettingsSubmenu(true);
+    };
+
+    const handleSettingsMouseLeave = () => {
+        hoverTimeout.current = setTimeout(() => {
+            setShowSettingsSubmenu(false);
+        }, 200);
+    };
+
+    const handleSettingsSubmenuMouseEnter = () => {
+        clearTimeout(hoverTimeout.current);
+        setShowSettingsSubmenu(true);
+    };
+
+    const handleSettingsSubmenuMouseLeave = () => {
+        hoverTimeout.current = setTimeout(() => {
+            setShowSettingsSubmenu(false);
+        }, 200);
+    };
+
 
     return (
         <>
@@ -154,10 +181,16 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                             </button>
                         </li>
                         <li>
-                            <button onClick={handleToggleTheme} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full transition-colors">
-                                <Settings className="w-5 h-5" />
-                                {!collapsed && <span className="ml-3">Settings</span>}
-                            </button>
+                            <div
+                                onMouseEnter={handleSettingsMouseEnter}
+                                onMouseLeave={handleSettingsMouseLeave}
+                            >
+                                <button className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full transition-colors">
+                                    <Settings className="w-5 h-5" />
+                                    {!collapsed && <span className="ml-3">Settings</span>}
+                                </button>
+                            </div>
+
                         </li>
                         <li>
                             <a href="#" className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2">
@@ -174,8 +207,9 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 <div
                     onMouseEnter={handleSubmenuMouseEnter}
                     onMouseLeave={handleSubmenuMouseLeave}
-                    className="hidden md:block fixed top-0 left-40 h-screen w-50 bg-gray-900 text-gray-200 shadow-lg z-30"
+                    className={`hidden md:block fixed top-0 ${collapsed ? "left-[4.2rem]" : "left-40"} h-screen w-50 bg-gray-900 text-gray-200 shadow-lg z-30`}
                 >
+
                     <ul className="space-y-2 p-4">
                         {playSubmenuItems.map((item) => (
                             <li key={item.id}>
@@ -188,6 +222,35 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                                 </button>
                             </li>
                         ))}
+                    </ul>
+                </div>
+            )}
+
+            {showSettingsSubmenu && (
+                <div
+                    onMouseEnter={handleSettingsSubmenuMouseEnter}
+                    onMouseLeave={handleSettingsSubmenuMouseLeave}
+                    className={`hidden md:block fixed bottom-10 ${collapsed ? " left-[4.2rem]" : "left-40"} left-40 h-23 w-48 bg-gray-900 text-gray-200 shadow-lg z-30`}
+                >
+                    <ul className="space-y-2 p-4">
+                        <li>
+                            <button
+                                onClick={() => navigate('/settings')}
+                                className="flex items-center w-full text-left text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
+                            >
+                                <Settings className="w-5 h-5" />
+                                <span className="ml-3">All Settings</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                onClick={() => alert('Logout')}
+                                className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-4 py-2 w-full"
+                            >
+                                <LogOut className="w-5 h-5" />
+                                <span className="ml-3">Logout</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             )}
