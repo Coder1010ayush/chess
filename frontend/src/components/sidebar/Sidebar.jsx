@@ -29,6 +29,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
     const hoverTimeout = useRef(null);
     const [showSettingsSubmenu, setShowSettingsSubmenu] = useState(false);
 
+    // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    // const [showMobilePlaySubmenu, setShowMobilePlaySubmenu] = useState(false);
+    const [showMobileSettingsSubmenu, setShowMobileSettingsSubmenu] = useState(false);
+
+
 
     const menuItems = [
         { id: 1, icon: <Play className="w-6 h-6" />, label: 'Play', submenu: true },
@@ -96,6 +101,33 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             setShowSettingsSubmenu(false);
         }, 200);
     };
+
+
+    // This function should be called when the user clicks the logout button
+    const handleLogout = () => {
+        localStorage.removeItem("token"); // or whatever auth key you're using
+        window.location.href = "/login"; // redirect to login page
+    };
+
+
+
+    //setShowSettingsSubmenu(false);
+    const settingsSubmenuItems = [
+        {
+            id: 1,
+            label: 'All Settings',
+            icon: <Settings className="w-4 h-4" />,
+            action: () => navigate('/settings'),
+        },
+        {
+            id: 2,
+            label: 'Logout',
+            icon: <LogOut className="w-4 h-4" />,
+            action: handleLogout, // assume this exists
+        },
+    ];
+    
+
 
 
     return (
@@ -288,7 +320,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                             <SunMoon className="w-5 h-5" />
                             <span className="ml-3">Light UI</span>
                         </button>
-                        <button onClick={handleToggleTheme} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full">
+                        <button onClick={() => {
+                            handleToggleTheme(); // call theme toggle
+                            setShowMobileSettingsSubmenu(true); // open settings submenu
+                            setShowMobilePlaySubmenu(false); // close play submenu
+                        }} className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2 w-full">
                             <Settings className="w-5 h-5" />
                             <span className="ml-3">Settings</span>
                         </button>
@@ -328,6 +364,35 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 </div>
             )}
             
+
+            {/* Mobile Settings Submenu (to right of main sidebar) */}
+            {isMobileMenuOpen && showMobileSettingsSubmenu && (
+                <div className="md:hidden fixed bottom-10 left-40 w-55 h-30 bg-gray-900 text-white z-50 p-4 shadow-lg">
+                    <div className="flex justify-end mb-4">
+                        <button
+                            onClick={() => setShowMobileSettingsSubmenu(false)}
+                            className="text-gray-300 hover:text-white"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
+                    {settingsSubmenuItems.map((item) => (
+                        <button
+                            key={item.id}
+                            onClick={() => {
+                                item.action();
+                                setShowMobileSettingsSubmenu(false);
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className="flex items-center w-full text-sm text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
+                        >
+                            {item.icon}
+                            <span className="ml-3">{item.label}</span>
+                        </button>
+                    ))}
+                </div>
+            )}
+
         </>
     );
 };
