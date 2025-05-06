@@ -327,6 +327,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                     ))}
                 </div>
             )}
+            
         </>
     );
 };
