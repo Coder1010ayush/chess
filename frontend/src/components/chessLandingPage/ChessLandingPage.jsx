@@ -10,7 +10,7 @@ const ChessLandingPage = () => {
             {/* Hero Section */}
             <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10 bg-gray-800">
                 <div className="w-full md:w-1/2">
-                    <img src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain" alt="Chess board" className="rounded-lg shadow-lg" />
+                    <img src="/standardboard.1d6f9426.png" alt="Chess board" className="rounded-lg shadow-lg h-80 w-90" />
                 </div>
                 <div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left">
                     <h1 className="text-4xl font-bold leading-snug">Play Chess Online on the Highest Rated Plateform</h1>
@@ -22,7 +22,6 @@ const ChessLandingPage = () => {
                 </div>
             </section>
 
-            {/* Puzzle Section */}
             {/* Puzzle Section */}
             <section className="flex flex-col md:flex-row bg-gray-800 p-6 md:p-12 mt-8">
                 {/* Content (Left on Desktop) */}
@@ -63,7 +62,7 @@ const ChessLandingPage = () => {
                 {/* Image (Right on Desktop) */}
                 <div className="w-full md:w-1/2 hidden md:flex justify-center">
                     <img
-                        src="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain"
+                        src="/standardboard.1d6f9426.png"
                         alt="Puzzle"
                         className="rounded shadow-md w-full max-w-md object-cover"
                     />
