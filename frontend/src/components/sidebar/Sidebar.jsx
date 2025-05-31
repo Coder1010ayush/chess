@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext.jsx';
 import {
     ChevronRight,
     Play,
@@ -32,6 +33,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
     // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     // const [showMobilePlaySubmenu, setShowMobilePlaySubmenu] = useState(false);
     const [showMobileSettingsSubmenu, setShowMobileSettingsSubmenu] = useState(false);
+    // const { user } = useUser();
 
 
 
@@ -102,12 +104,33 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         }, 200);
     };
 
+    // Logout function
+    const { setUser } = useUser();
 
-    // This function should be called when the user clicks the logout button
-    const handleLogout = () => {
-        localStorage.removeItem("token"); // or whatever auth key you're using
-        window.location.href = "/login"; // redirect to login page
+    const logout = async () => {
+        try {
+            const res = await fetch("http://localhost:9092/auth/logout", {
+                method: "POST",
+                credentials: "include",
+            });
+            if (res.ok) {
+                setUser(null); // this now works
+                localStorage.removeItem("user");
+                window.location.href = "/login";
+            } else {
+                console.error("Logout failed:", res.statusText);
+            }
+        } catch (err) {
+            console.error("Logout failed", err);
+        }
     };
+
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+    };
+
 
 
 
@@ -126,6 +149,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             action: handleLogout, // assume this exists
         },
     ];
+
+    
     
 
 
@@ -276,7 +301,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                         </li>
                         <li>
                             <button
-                                onClick={() => alert('Logout')}
+                                onClick={logout}
                                 className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-4 py-2 w-full"
                             >
                                 <LogOut className="w-5 h-5" />

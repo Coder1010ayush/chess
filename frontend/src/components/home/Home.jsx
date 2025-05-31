@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import {useUser} from '../../context/UserContext.jsx';
 
 const ChessHomePage = () => {
     const [showWelcome, setShowWelcome] = useState(true);
     const navigate = useNavigate();
+    const { user } = useUser();
+    // const userName = user ? user.name : "Guest";
 
     return (
         <div className="bg-gray-900 min-h-screen text-white">
@@ -15,7 +18,7 @@ const ChessHomePage = () => {
                         alt="User avatar"
                         className="w-10 h-10 mr-3 rounded-full"
                     />
-                    <h1 className="text-xl font-bold">RISHABH-JNU</h1>
+                    <h1 className="text-xl font-bold">{user?.fullName}</h1>
                     <img
                         src="https://static.vecteezy.com/system/resources/previews/004/757/123/original/india-flag-free-vector.jpg"
                         alt="India flag"

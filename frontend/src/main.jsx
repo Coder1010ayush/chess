@@ -2,7 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import Setting from './components/settings/setting.jsx'
+import { UserProvider } from './context/UserContext.jsx'
+// import Setting from './components/settings/setting.jsx'
 import Home from './components/home/Home.jsx'
 import Sidebar from './components/sidebar/Sidebar.jsx'
 import ChessLandingPage from './components/chessLandingPage/ChessLandingPage.jsx'
@@ -11,7 +12,9 @@ import SignupPage from './components/signupPage/SignupPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
     {/* <Setting /> */}
     {/* <Home /> */}
     {/* <Sidebar /> */}

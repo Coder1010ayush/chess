@@ -11,8 +11,21 @@ const userRoutes = require("./routes/user");
 const app = express();
 const PORT = process.env.PORT || 9092;
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
+
+
+
 // Middleware
-app.use(cors());
+// Allow credentials from specific origin
+app.use(cors({
+    origin: "http://localhost:5173", // <-- Frontend origin
+    credentials: true               // <-- Allow cookies and auth headers
+}));
 app.use(express.json());
 
 // MongoDB Connection
@@ -34,6 +47,8 @@ app.get("/", (req, res) => {
 });
 
 // Routes
+app.use("/auth", require("./routes/auth")); 
+
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 
