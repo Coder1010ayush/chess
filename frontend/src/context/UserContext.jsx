@@ -5,6 +5,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true); // Added loading state
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -14,7 +15,7 @@ export const UserProvider = ({ children }) => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    credentials: "include",
+                    credentials: "include", // important for cookies
                 });
 
                 if (res.ok) {
@@ -22,8 +23,12 @@ export const UserProvider = ({ children }) => {
                     setUser(data.user);
                     localStorage.setItem("user", JSON.stringify(data.user));
                 } else {
-                    setUser(null);
-                    localStorage.removeItem("user");
+                    const storedUser = localStorage.getItem("user");
+                    if (storedUser) {
+                        setUser(JSON.parse(storedUser));
+                    } else {
+                        setUser(null);
+                    }
                 }
             } catch (error) {
                 console.error("Failed to fetch user:", error);
@@ -33,6 +38,8 @@ export const UserProvider = ({ children }) => {
                 } else {
                     setUser(null);
                 }
+            } finally {
+                setLoading(false); // Done loading
             }
         };
 
@@ -62,7 +69,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, login, logout }}>
+        <UserContext.Provider value={{ user, setUser, login, logout, loading }}>
             {children}
         </UserContext.Provider>
     );

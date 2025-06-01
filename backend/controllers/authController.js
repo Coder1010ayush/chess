@@ -2,10 +2,11 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// Ensure cookie works cross-origin (e.g., frontend on localhost:3000)
 const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Lax",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 };
 
@@ -28,7 +29,6 @@ exports.signup = async (req, res) => {
 
         res.cookie("token", token, cookieOptions);
 
-        // Avoid returning hashed password
         const userResponse = {
             id: newUser._id,
             username: newUser.username,

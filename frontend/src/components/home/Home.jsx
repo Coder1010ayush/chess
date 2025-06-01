@@ -6,7 +6,9 @@ import {useUser} from '../../context/UserContext.jsx';
 const ChessHomePage = () => {
     const [showWelcome, setShowWelcome] = useState(true);
     const navigate = useNavigate();
-    const { user } = useUser();
+    const { user, logout, loading } = useUser();
+
+    if (loading) return null; // Or spinner
     // const userName = user ? user.name : "Guest";
 
     return (
