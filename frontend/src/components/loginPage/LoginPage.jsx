@@ -22,7 +22,7 @@ const LoginPage = ({ setUserLoggedIn }) => {
 
         try {
             const res = await axios.post("http://localhost:9092/auth/login", form, {
-                withCredentials: true, // ✅ Include credentials (cookies) in request
+                withCredentials: true, // Include credentials (cookies) in request
             });
 
             localStorage.setItem("token", res.data.token); // Optional if using cookies
