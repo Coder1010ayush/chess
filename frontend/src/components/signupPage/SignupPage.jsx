@@ -50,10 +50,18 @@ const SignupPage = ({ setUserLoggedIn }) => {
         setError("");
 
         try {
-            const res = await axios.post("http://localhost:9092/auth/signup", form);
-            localStorage.setItem("token", res.data.token);
-            setUserLoggedIn(true); // Update userLoggedIn state to true
-            navigate("/"); //  After signup, go to Home with Sidebar
+            await axios.post("http://localhost:9092/auth/signup", form, {
+                withCredentials: true, // Enables cookie handling
+            });
+
+            // Optionally, you can call /auth/me to get user info
+            // const meRes = await axios.get("http://localhost:9092/auth/me", {
+            //     withCredentials: true,
+            // });
+            // setUser(meRes.data.user); // if you store full user info
+
+            setUserLoggedIn(true); // basic boolean state is fine too
+            navigate("/");
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.error || "Signup failed.");
