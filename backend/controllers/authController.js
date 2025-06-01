@@ -2,7 +2,6 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Set cookie options
 const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -15,17 +14,32 @@ exports.signup = async (req, res) => {
 
     try {
         const hashed = await bcrypt.hash(password, 10);
-        const newUser = await User.create({ username, email, fullName, password: hashed, avatar });
+        const newUser = await User.create({
+            username,
+            email,
+            fullName,
+            password: hashed,
+            avatar,
+        });
 
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
             expiresIn: "7d",
         });
 
-        // Set token in cookie
         res.cookie("token", token, cookieOptions);
 
-        res.status(201).json({ user: newUser });
+        // Avoid returning hashed password
+        const userResponse = {
+            id: newUser._id,
+            username: newUser.username,
+            email: newUser.email,
+            fullName: newUser.fullName,
+            avatar: newUser.avatar,
+        };
+
+        res.status(201).json({ user: userResponse });
     } catch (err) {
+        console.error("Signup error:", err);
         res.status(500).json({ error: "Signup failed" });
     }
 };
@@ -43,11 +57,19 @@ exports.login = async (req, res) => {
             expiresIn: "7d",
         });
 
-        // Set token in cookie
         res.cookie("token", token, cookieOptions);
 
-        res.status(200).json({ user });
+        const userResponse = {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            fullName: user.fullName,
+            avatar: user.avatar,
+        };
+
+        res.status(200).json({ user: userResponse });
     } catch (err) {
+        console.error("Login error:", err);
         res.status(500).json({ error: "Login failed" });
     }
 };

@@ -21,10 +21,13 @@ const LoginPage = ({ setUserLoggedIn }) => {
         setError("");
 
         try {
-            const res = await axios.post("http://localhost:9092/auth/login", form); // correct endpoint
-            localStorage.setItem("token", res.data.token);
-            setUserLoggedIn(true); // Update userLoggedIn state to true
-            navigate("/"); // after login, go to Home
+            const res = await axios.post("http://localhost:9092/auth/login", form, {
+                withCredentials: true, // ✅ Include credentials (cookies) in request
+            });
+
+            localStorage.setItem("token", res.data.token); // Optional if using cookies
+            setUserLoggedIn(true); // Update userLoggedIn state
+            navigate("/"); // Redirect to home
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.error || "Login failed.");
