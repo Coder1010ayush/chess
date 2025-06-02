@@ -142,6 +142,18 @@ const SignupPage = ({ setUserLoggedIn }) => {
                     >
                         {uploading ? "Uploading..." : "Sign Up"}
                     </button>
+
+                    {/* Link to Login */}
+                    <p className="text-center text-sm text-gray-400 mt-2">
+                        Already have an account?{" "}
+                        <button
+                            onClick={() => navigate("/login")}
+                            type="button"
+                            className="text-blue-400 hover:underline"
+                        >
+                            Log In
+                        </button>
+                    </p>
                 </form>
             </div>
         </div>
