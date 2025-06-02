@@ -187,7 +187,11 @@ const SidebarLanding = () => {
                     {playSubmenuItems.map((subItem) => (
                         <button
                             key={subItem.id}
-                            onClick={subItem.action}
+                            onClick={() => {
+                                navigate('/signup');
+                                // subItem.action();
+                            }}
+
                             className="flex items-center w-full text-gray-300 hover:bg-gray-800 rounded-lg px-4 py-2"
                         >
                             {subItem.icon}
