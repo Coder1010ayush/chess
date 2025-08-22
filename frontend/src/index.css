@@ -1,3 +1,65 @@
+/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Light theme */
+:root,
+.light {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --sidebar-bg: #000000;
+    --sidebar-text: #e2e2e2;
+    --card-bg: #f3f4f6;
+    --input-bg: #f9fafb;
+    --button-primary: #10b981;
+    /* green-600 */
+    --button-secondary: #374151;
+    /* gray-700 */
+}
+
+/* Dark theme */
+.dark {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --sidebar-bg: #1a1a1a;
+    --sidebar-text: #e2e2e2;
+    --card-bg: #1e1e1e;
+    --input-bg: #2d2d2d;
+    --button-primary: #059669;
+    /* darker green */
+    --button-secondary: #4b5563;
+    /* lighter gray */
+}
+
+/* Apply theme variables */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Sidebar specific styles */
+.sidebar {
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+}
+
+/* Card styles */
+.card {
+    background-color: var(--card-bg);
+}
+
+/* Input styles */
+.input-field {
+    background-color: var(--input-bg);
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: var(--button-primary);
+}
+
+.btn-secondary {
+    background-color: var(--button-secondary);
+}

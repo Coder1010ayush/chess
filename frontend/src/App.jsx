@@ -7,29 +7,41 @@ import ChessHomePage from "./components/home/Home";
 import ChessLandingPage from "./components/chessLandingPage/ChessLandingPage";
 import ChessBox from "./components/chessBox/ChessBox";
 import Settings from "./components/settings/Setting";
+import { ThemeProvider } from "./themecontext/ThemeContext"; // make sure path is correct
+import { ThemeWrapper } from "./components/ThemeWrapper";
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/signup" element={<SignupPage setUserLoggedIn={setUserLoggedIn} />} />
-        <Route path="/login" element={<LoginPage setUserLoggedIn={setUserLoggedIn} />} />
+    <ThemeProvider>
+      <ThemeWrapper>
+      <Router>
+        <Routes>
+          <Route
+            path="/signup"
+            element={<SignupPage setUserLoggedIn={setUserLoggedIn} />}
+          />
+          <Route
+            path="/login"
+            element={<LoginPage setUserLoggedIn={setUserLoggedIn} />}
+          />
 
-        {userLoggedIn ? (
-          <Route path="/" element={<Layout userLoggedIn={userLoggedIn} />}>
-            <Route index element={<ChessHomePage />} />
-            <Route path="play/human-vs-human" element={<ChessBox />} />
-            <Route path="play/human-vs-ai" element={<ChessBox />} />
-            <Route path="play/ai-vs-ai" element={<ChessBox />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-        ) : (
-          <Route path="/*" element={<ChessLandingPage />} />
-        )}
-      </Routes>
-    </Router>
+          {userLoggedIn ? (
+            <Route path="/" element={<Layout userLoggedIn={userLoggedIn} />}>
+              <Route index element={<ChessHomePage />} />
+              <Route path="play/human-vs-human" element={<ChessBox />} />
+              <Route path="play/human-vs-ai" element={<ChessBox />} />
+              <Route path="play/ai-vs-ai" element={<ChessBox />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+          ) : (
+            <Route path="/*" element={<ChessLandingPage />} />
+          )}
+        </Routes>
+      </Router>
+      </ThemeWrapper>
+    </ThemeProvider>
   );
 }
 

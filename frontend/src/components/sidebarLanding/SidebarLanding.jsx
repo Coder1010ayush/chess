@@ -16,10 +16,12 @@ import {
     SunMoon,
     HelpCircle,
 } from 'lucide-react';
+import { ThemeProvider } from '../../themecontext/ThemeContext';
+import { useTheme } from '../../themecontext/ThemeContext';
 
 const SidebarLanding = () => {
     const navigate = useNavigate();
-    const [lightMode, setLightMode] = useState(false);
+    // const [lightMode, setLightMode] = useState(false);
     const [showPlaySubmenu, setShowPlaySubmenu] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [showMobilePlaySubmenu, setShowMobilePlaySubmenu] = useState(false);
@@ -55,7 +57,14 @@ const SidebarLanding = () => {
         },
     ];
 
-    const handleToggleTheme = () => setLightMode(!lightMode);
+    // const handleToggleTheme = () => setLightMode(!lightMode);
+    const { theme, toggleTheme } = useTheme();
+
+    const handleToggleTheme = () => {
+        toggleTheme();
+    };
+
+
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
         setShowMobilePlaySubmenu(false);
@@ -86,8 +95,7 @@ const SidebarLanding = () => {
     return (
         <>
             {/* Mobile Top Bar */}
-            <div className="md:hidden fixed top-0 left-0 w-full z-50 bg-black text-white flex items-center justify-between px-4 py-3 shadow-md">
-                <div className="flex items-center space-x-3">
+            <div className="md:hidden fixed top-0 left-0 w-full z-50 bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] flex items-center justify-between px-4 py-3 shadow-md">                <div className="flex items-center space-x-3">
                     <button onClick={toggleMobileMenu}>
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
@@ -115,8 +123,7 @@ const SidebarLanding = () => {
             </div>
 
             {/* Desktop Sidebar */}
-            <div className="hidden md:flex fixed top-0 left-0 h-screen w-40 bg-black text-gray-200 flex-col z-40">
-                <div className="flex items-center justify-center h-16 border-b border-gray-800">
+            <div className="hidden md:flex fixed top-0 left-0 h-screen w-40 bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] flex-col z-40">                <div className="flex items-center justify-center h-16 border-b border-gray-800">
                     <img src="/pieces/chessLogo.png" className="w-10 h-10" alt="logo" />
                     <span className="text-white font-bold text-xl">Chess.in</span>
                 </div>
@@ -161,12 +168,13 @@ const SidebarLanding = () => {
 
                 <div className='mt-8 pt-10 mb-2 px-2'>
                     <button
-                        onClick={handleToggleTheme}
+                        onClick={toggleTheme}
                         className="flex items-center w-full text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
                     >
                         <SunMoon className="w-5 h-5" />
-                        <span className="ml-3">Light UI</span>
+                        <span className="ml-3">{theme === 'dark' ? 'Light UI' : 'Dark UI'}</span>
                     </button>
+
                     <a
                         href="#"
                         className="flex items-center text-gray-300 hover:bg-gray-800 rounded-lg px-3 py-2"
@@ -282,7 +290,8 @@ const SidebarLanding = () => {
                         <button
                             key={item.id}
                             onClick={() => {
-                                item.action();
+                                navigate('/signup');
+                                // item.action();
                                 setShowMobilePlaySubmenu(false);
                                 setIsMobileMenuOpen(false);
                             }}
