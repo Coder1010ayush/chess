@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import {useUser} from '../../context/UserContext.jsx';
+import { useUser } from '../../context/UserContext.jsx';
 
 const ChessHomePage = () => {
     const [showWelcome, setShowWelcome] = useState(true);
@@ -43,11 +43,20 @@ const ChessHomePage = () => {
                 <div className="bg-blue-500 p-4 md:p-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-2">We're so glad you're here!</h2>
-                        <p className="text-lg md:text-2xl">Tell us how you heard about us and what brought you in</p>
+                        <p className="text-lg md:text-2xl font-semibold">Tell us how you heard about us and what brought you in</p>
                     </div>
-                    <button className="bg-white text-gray-800 px-4 md:px-6 py-2 md:py-3 rounded-md text-lg md:text-xl font-bold">
+                    <button
+                        className="relative bg-gradient-to-r from-green-500 via-emerald-600 to-green-700 
+                                   text-white px-6 md:px-8 py-2.5 md:py-3.5 rounded-lg 
+                                   text-lg md:text-xl font-semibold shadow-lg 
+                                   transition-all duration-300 ease-in-out 
+                                   hover:scale-105 hover:shadow-xl 
+                                   hover:from-green-600 hover:via-emerald-700 hover:to-green-800 
+                                   focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+                                   > 
                         Start Now!
                     </button>
+
                 </div>
             )}
 
@@ -78,17 +87,17 @@ const ChessHomePage = () => {
             <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <ChessBoard
                     title="Human - Human"
-                    imageUrl="https://th.bing.com/th/id/OIP.NHEQMuNBcdTwSyCgw4osrQHaE_?rs=1&pid=ImgDetMain"
+                    imageUrl="/board-puzzles.png"
                     onClick={() => navigate("/play/human-vs-human")}
                 />
                 <ChessBoard
                     title="Human - AI"
-                    imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Chess_board_opening.svg/800px-Chess_board_opening.svg.png"
+                    imageUrl="/board-puzzles.png"
                     onClick={() => navigate("/play/human-vs-ai")}
                 />
                 <ChessBoard
                     title="AI - AI"
-                    imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Chess_kasparov.png/800px-Chess_kasparov.png"
+                    imageUrl="/board-puzzles.png"
                     onClick={() => navigate("/play/ai-vs-ai")}
                 />
             </div>

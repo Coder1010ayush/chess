@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext.jsx";
 
-const LoginPage = ({ setUserLoggedIn }) => {
+const LoginPage = () => {
     const navigate = useNavigate();
+    const { login } = useUser();  // get login() from context
 
     const [form, setForm] = useState({
         email: "",
@@ -21,13 +23,15 @@ const LoginPage = ({ setUserLoggedIn }) => {
         setError("");
 
         try {
-            const res = await axios.post("http://localhost:9092/auth/login", form, {
-                withCredentials: true, // Include credentials (cookies) in request
-            });
+            const res = await axios.post(
+                "http://localhost:9092/auth/login",
+                form,
+                { withCredentials: true } // send/receive cookies
+            );
 
-            localStorage.setItem("token", res.data.token); // Optional if using cookies
-            setUserLoggedIn(true); // Update userLoggedIn state
-            navigate("/"); // Redirect to home
+            // res.data should include { user: {...}, token?: "..." }
+            login(res.data.user); // update context
+            navigate("/"); // redirect
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.error || "Login failed.");

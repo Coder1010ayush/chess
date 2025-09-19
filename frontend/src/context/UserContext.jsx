@@ -1,75 +1,64 @@
 // context/UserContext.jsx
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // Added loading state
+    const [loading, setLoading] = useState(true);
 
+    // Fetch user session from backend when app loads or refreshes
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const res = await fetch("http://localhost:9092/auth/me", {
                     method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
                     credentials: "include", // important for cookies
                 });
 
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data.user);
-                    localStorage.setItem("user", JSON.stringify(data.user));
-                } else {
-                    const storedUser = localStorage.getItem("user");
-                    if (storedUser) {
-                        setUser(JSON.parse(storedUser));
-                    } else {
-                        setUser(null);
-                    }
-                }
-            } catch (error) {
-                console.error("Failed to fetch user:", error);
-                const storedUser = localStorage.getItem("user");
-                if (storedUser) {
-                    setUser(JSON.parse(storedUser));
                 } else {
                     setUser(null);
                 }
+            } catch (err) {
+                console.error("Auth check failed:", err);
+                setUser(null);
             } finally {
-                setLoading(false); // Done loading
+                setLoading(false);
             }
         };
 
         fetchUser();
     }, []);
 
+    // Called after successful login/signup
     const login = (userData) => {
-        localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
     };
 
+    // Logout and clear session on backend + frontend
     const logout = async () => {
         try {
-            const res = await fetch("http://localhost:9092/auth/logout", {
+            await fetch("http://localhost:9092/auth/logout", {
                 method: "POST",
                 credentials: "include",
             });
-            if (res.ok) {
-                localStorage.removeItem("user");
-                setUser(null);
-            } else {
-                console.error("Logout failed:", res.statusText);
-            }
         } catch (err) {
-            console.error("Logout error:", err);
+            console.error("Logout failed:", err);
+        } finally {
+            setUser(null);
         }
     };
 
+    // Don’t render app until we know if user is logged in or not
+    if (loading) {
+        return <div className="text-center text-white p-6">Loading...</div>;
+    }
+
     return (
-        <UserContext.Provider value={{ user, setUser, login, logout, loading }}>
+        <UserContext.Provider value={{ user, login, logout, loading }}>
             {children}
         </UserContext.Provider>
     );

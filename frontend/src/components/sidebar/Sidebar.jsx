@@ -103,35 +103,31 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             setShowSettingsSubmenu(false);
         }, 200);
     };
+    
 
-    // Logout function
-    const { setUser } = useUser();
-
-    const logout = async () => {
-        try {
-            const res = await fetch("http://localhost:9092/auth/logout", {
-                method: "POST",
-                credentials: "include",
-            });
-            if (res.ok) {
-                setUser(null); // this now works
-                localStorage.removeItem("user");
-                window.location.href = "/login";
-            } else {
-                console.error("Logout failed:", res.statusText);
-            }
-        } catch (err) {
-            console.error("Logout failed", err);
-        }
-    };
-
+    // get logout directly from UserContext
+    const { logout } = useUser();
+    //     try {
+    //         const res = await fetch("http://localhost:9092/auth/logout", {
+    //             method: "POST",
+    //             credentials: "include",
+    //         });
+    //         if (res.ok) {
+    //             setUser(null); // this now works
+    //             localStorage.removeItem("user");
+    //             window.location.href = "/login";
+    //         } else {
+    //             console.error("Logout failed:", res.statusText);
+    //         }
+    //     } catch (err) {
+    //         console.error("Logout failed", err);
+    //     }
+    // };
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         window.location.href = "/login";
     };
-
-
 
 
     //setShowSettingsSubmenu(false);
@@ -146,9 +142,10 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             id: 2,
             label: 'Logout',
             icon: <LogOut className="w-4 h-4" />,
-            action: handleLogout, // assume this exists
+            action: logout, // use context logout
         },
     ];
+
 
     
     
